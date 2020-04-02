@@ -6,7 +6,23 @@ import List from './components/List';
 class App extends Component {
 
 	state = {
-		lists:[]
+		lists:[
+			{
+				text:`Can't take my eyes off you`,
+				score:4,
+				id:0
+			},
+			{
+				text:`Vanila - 태연`,
+				score:3,
+				id:1
+			},
+			{
+				text:`N.o`,
+				score:5,
+				id:2
+			}
+		]
 	}
 
 	id=1;

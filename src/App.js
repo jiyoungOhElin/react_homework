@@ -45,7 +45,7 @@ class App extends Component {
 				if(item.id === id){
 					return {
 						...item,
-						score: item.score > 0 ? item.score-=1 : item.score
+						score: item.score > 0 ? item.score-= 1 : item.score
 					}
 				}else{
 					return item;
@@ -66,7 +66,7 @@ class App extends Component {
 			<div className="App">
 				<h3>LIST OF {TYPE}S</h3>
 				<Form type={TYPE} onInsert={this.handleInsert}/>
-				<List lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
+				<List typs={TYPE} lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
 			</div>
 		);
 	}

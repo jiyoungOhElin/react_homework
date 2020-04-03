@@ -6,23 +6,7 @@ import List from './components/List';
 class App extends Component {
 
 	state = {
-		lists:[
-			{
-				text:`Can't take my eyes off you`,
-				score:4,
-				id:0
-			},
-			{
-				text:`Vanila - 태연`,
-				score:3,
-				id:1
-			},
-			{
-				text:`N.o`,
-				score:5,
-				id:2
-			}
-		]
+		lists:[]
 	}
 
 	id=1;
@@ -45,13 +29,25 @@ class App extends Component {
 				if(item.id === id){
 					return {
 						...item,
-						score: item.score < 5 ? item.score+=1 : item.score
+						score: item.score < 9.9 ? this.discardDecPnt(Number(item.score)+0.1) : item.score
 					}
 				}else{
 					return item;
 				}
 			})
 		})
+	}
+
+	discardDecPnt = (num) => {
+		const num1 = Number(num);
+		const num2 = Number(num1.toFixed(1));
+		let numResult;
+		if(Number.isInteger(num2)){
+			numResult = num2 + '.0' ;
+		}else{
+			numResult = num2
+		}
+		return numResult;
 	}
 
 	handleSubtractScore = (id) => {
@@ -61,7 +57,7 @@ class App extends Component {
 				if(item.id === id){
 					return {
 						...item,
-						score: item.score > 0 ? item.score-=1 : item.score
+						score: item.score > 0 ? this.discardDecPnt(Number(item.score)-0.1) : item.score
 					}
 				}else{
 					return item;
@@ -77,12 +73,12 @@ class App extends Component {
 	}
 
 	render() {
-		const TYPE="SONG";
+		const TYPE="MOVIE";
 		return (
 			<div className="App">
 				<h3>LIST OF {TYPE}S</h3>
 				<Form type={TYPE} onInsert={this.handleInsert}/>
-				<List lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
+				<List typs={TYPE} lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
 			</div>
 		);
 	}

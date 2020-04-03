@@ -6,10 +6,15 @@ import List from './components/List';
 class App extends Component {
 
 	state = {
-		lists:[]
+		lists:[
+			{id: 0, score: 9.8, text: "Inception"},
+			{id: 1, score: 0.1, text: "NoteBook"},
+		]
 	}
 
-	id=1;
+	id=2;
+
+	maxNumber = 9.9;
 
 	handleInsert = (text)=>{
 		this.setState({
@@ -21,23 +26,7 @@ class App extends Component {
 		})
 		this.id++;
 	}
-
-	handleAddScore = (id) => {
-		const {lists} = this.state;
-		this.setState({
-			lists: lists.map(item =>{
-				if(item.id === id){
-					return {
-						...item,
-						score: item.score < 9.9 ? this.discardDecPnt(Number(item.score)+0.1) : item.score
-					}
-				}else{
-					return item;
-				}
-			})
-		})
-	}
-
+	
 	discardDecPnt = (num) => {
 		const num1 = Number(num);
 		const num2 = Number(num1.toFixed(1));
@@ -48,6 +37,22 @@ class App extends Component {
 			numResult = num2
 		}
 		return numResult;
+	}
+
+	handleAddScore = (id) => {
+		const {lists} = this.state;
+		this.setState({
+			lists: lists.map(item =>{
+				if(item.id === id){
+					return {
+						...item,
+						score: item.score < this.maxNumber ? this.discardDecPnt(Number(item.score)+0.1) : item.score
+					}
+				}else{
+					return item;
+				}
+			})
+		})
 	}
 
 	handleSubtractScore = (id) => {

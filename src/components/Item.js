@@ -8,7 +8,6 @@ class Item extends Component {
 			return true;
 		}else return false;
 	}
-	
 
 	render() {
 		const {list, onAddScore, onSubScore, onRemove} = this.props;
@@ -21,7 +20,7 @@ class Item extends Component {
 				<div className="subtract" onClick={()=>onSubScore(list.id)} name="minus">[-]</div>
 				<div className="add" onClick={()=>onAddScore(list.id)}  name="plus">[+]</div>
 
-				<div className="score">{"★".repeat(list.score)}</div>
+				<div className="score">{"★".repeat(list.score) }</div>
 			</div>
 		);
 	}

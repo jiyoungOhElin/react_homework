@@ -6,10 +6,15 @@ import List from './components/List';
 class App extends Component {
 
 	state = {
-		lists:[]
+		lists:[
+			{id: 0, score: 4, text: "Can't take my eyes off you"},
+			{id: 1, score: 1, text: "Sorry"},
+		]
 	}
 
-	id=1;
+	id=2;
+
+	maxNumber = 5;
 
 	handleInsert = (text)=>{
 		this.setState({
@@ -29,7 +34,7 @@ class App extends Component {
 				if(item.id === id){
 					return {
 						...item,
-						score: item.score < 5 ? item.score+=1 : item.score
+						score: item.score < this.maxNumber ? item.score+=1 : item.score
 					}
 				}else{
 					return item;
@@ -66,7 +71,7 @@ class App extends Component {
 			<div className="App">
 				<h3>LIST OF {TYPE}S</h3>
 				<Form type={TYPE} onInsert={this.handleInsert}/>
-				<List typs={TYPE} lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
+				<List type={TYPE} lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
 			</div>
 		);
 	}

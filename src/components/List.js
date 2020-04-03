@@ -9,11 +9,11 @@ class List extends Component {
 		return( 
 			<div className="List">
 				{
-					type === "SONGS" ?
+					type === "SONG"?
 					lists.map(list=>{
 						return <Item key={list.id} onAddScore={onAddScore} list={list} onSubScore={onSubScore} onRemove={onRemove}/> 
-					})
-					:lists.map(list=>{
+					}):
+					lists.map(list=>{
 						return <Item2 key={list.id} onAddScore={onAddScore} list={list} onSubScore={onSubScore} onRemove={onRemove}/> 
 					})
 				}

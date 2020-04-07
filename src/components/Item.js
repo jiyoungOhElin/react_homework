@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Item.css';
 
 class Item extends Component {
-
 	shouldComponentUpdate(nextProps, nextState) {
 		if(this.props.list !== nextProps.list){
 			return true;
@@ -11,7 +10,6 @@ class Item extends Component {
 
 	render() {
 		const {list, onAddScore, onSubScore, onRemove} = this.props;
-
 		return (
 			<div className="Item">
 				<div className="text">{list.text}</div>
@@ -25,5 +23,6 @@ class Item extends Component {
 		);
 	}
 }
+
 
 export default Item;

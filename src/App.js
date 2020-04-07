@@ -14,8 +14,6 @@ class App extends Component {
 
 	id=2;
 
-	maxNumber = 5;
-
 	handleInsert = (text)=>{
 		this.setState({
 			lists: this.state.lists.concat({
@@ -27,14 +25,23 @@ class App extends Component {
 		this.id++;
 	}
 
-	handleAddScore = (id) => {
+	changeScore = (id, sign) => {
 		const {lists} = this.state;
+		const step = 1;
+		const maxNumber = 5;
+		const minNumber = 0;
+
 		this.setState({
 			lists: lists.map(item =>{
 				if(item.id === id){
-					return {
-						...item,
-						score: item.score < this.maxNumber ? item.score+=1 : item.score
+					const newScore = item.score + sign * step;
+					if(newScore <= maxNumber  && newScore >= minNumber){
+						return {
+							...item,
+							score: newScore
+						}
+					}else{
+						return item;
 					}
 				}else{
 					return item;
@@ -43,21 +50,13 @@ class App extends Component {
 		})
 	}
 
+	handleAddScore = (id) => {
+		this.changeScore(id, +1);
+	};
+
 	handleSubtractScore = (id) => {
-		const {lists} = this.state;
-		this.setState({
-			lists: lists.map(item =>{
-				if(item.id === id){
-					return {
-						...item,
-						score: item.score > 0 ? item.score-= 1 : item.score
-					}
-				}else{
-					return item;
-				}
-			})
-		})
-	}
+		this.changeScore(id, -1);
+	};
 
 	handleRemove=(id)=>{
 		this.setState({

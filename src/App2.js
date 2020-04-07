@@ -14,8 +14,6 @@ class App extends Component {
 
 	id=2;
 
-	maxNumber = 9.9;
-
 	handleInsert = (text)=>{
 		this.setState({
 			lists: this.state.lists.concat({
@@ -27,49 +25,51 @@ class App extends Component {
 		this.id++;
 	}
 	
-	discardDecPnt = (num) => {
-		const num1 = Number(num);
-		const num2 = Number(num1.toFixed(1));
-		let numResult;
-		if(Number.isInteger(num2)){
-			numResult = num2 + '.0' ;
-		}else{
-			numResult = num2
-		}
-		return numResult;
+	// discardDecPnt = (num) => {
+	// 	const num1 = Number(num);
+	// 	const num2 = Number(num1.toFixed(1));
+	// 	let numResult;
+	// 	if(Number.isInteger(num2)){
+	// 		numResult = num2 + '.0' ;
+	// 	}else{
+	// 		numResult = num2
+	// 	}
+	// 	return numResult;
+	// }
+
+	changeScore = (id, sign) => {
+		const {lists} = this.state;
+		const step = 0.1;
+		const maxNumber = 9.9;
+		const minNumber = 0;
+
+		this.setState({
+			lists: lists.map(item =>{
+				if(item.id === id){
+					const score =item.score + sign * step; 
+					const newScore = Number(score.toFixed(1));
+					if(newScore <= maxNumber  && newScore >= minNumber){
+						return {
+							...item,
+							score: newScore
+						}
+					}else{
+						return item;
+					}
+				}else{
+					return item;
+				}
+			})
+		})
 	}
 
 	handleAddScore = (id) => {
-		const {lists} = this.state;
-		this.setState({
-			lists: lists.map(item =>{
-				if(item.id === id){
-					return {
-						...item,
-						score: item.score < this.maxNumber ? this.discardDecPnt(Number(item.score)+0.1) : item.score
-					}
-				}else{
-					return item;
-				}
-			})
-		})
-	}
+		this.changeScore(id, +1);
+	};
 
 	handleSubtractScore = (id) => {
-		const {lists} = this.state;
-		this.setState({
-			lists: lists.map(item =>{
-				if(item.id === id){
-					return {
-						...item,
-						score: item.score > 0 ? this.discardDecPnt(Number(item.score)-0.1) : item.score
-					}
-				}else{
-					return item;
-				}
-			})
-		})
-	}
+		this.changeScore(id, -1);
+	};
 
 	handleRemove=(id)=>{
 		this.setState({
@@ -83,7 +83,7 @@ class App extends Component {
 			<div className="App">
 				<h3>LIST OF {TYPE}S</h3>
 				<Form type={TYPE} onInsert={this.handleInsert}/>
-				<List typs={TYPE} lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
+				<List type={TYPE} lists={this.state.lists} onAddScore={this.handleAddScore} onSubScore={this.handleSubtractScore} onRemove={this.handleRemove}/>
 			</div>
 		);
 	}

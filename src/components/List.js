@@ -6,15 +6,16 @@ import Item2 from './Item2'
 class List extends Component {
 	render() {
 		const {type, lists, onAddScore, onSubScore, onRemove} = this.props;
+		const components = {
+			"SONG": Item,
+			"MOVIE":Item2
+		}
+		const ItemTag = components[type];
 		return( 
 			<div className="List">
 				{
-					type === "SONG"?
 					lists.map(list=>{
-						return <Item key={list.id} onAddScore={onAddScore} list={list} onSubScore={onSubScore} onRemove={onRemove}/> 
-					}):
-					lists.map(list=>{
-						return <Item2 key={list.id} onAddScore={onAddScore} list={list} onSubScore={onSubScore} onRemove={onRemove}/> 
+						return <ItemTag key={list.id} onAddScore={onAddScore} list={list} onSubScore={onSubScore} onRemove={onRemove} type={type}/> 
 					})
 				}
 			</div>
